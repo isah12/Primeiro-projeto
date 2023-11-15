@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+    }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/addons/p5.sound.js"></script>
+  <title>Música e Animação</title>
+</head>
+<body>
+  <script>
+    let song;
+    let amplitude;
+
+    function preload() {
+      song = loadSound('[FREE] J.I.D x J Cole Type Beat - _Ever Know__AX_HyMQtEKU.mp3'); // Substitua pelo caminho do seu arquivo de música
+    }
+
+    function setup() {
+      createCanvas(windowWidth, windowHeight);
+      amplitude = new p5.Amplitude();
+      song.play();
+    }
+
+    function draw() {
+      background(0);
+      let level = amplitude.getLevel();
+      let size = map(level, 0, 1, 50, min(width, height) / 2);
+
+      stroke(255);
+      strokeWeight(2);
+
+      for (let i = 0; i < 360; i += 10) {
+        let angle = radians(i);
+        let x = width / 2 + cos(angle) * size;
+        let y = height / 2 + sin(angle) * size;
+        let xEnd = width / 2 + cos(angle) * (size + 20);
+        let yEnd = height / 2 + sin(angle) * (size + 20);
+
+        line(x, y, xEnd, yEnd);
+      }
+    }
+
+    function windowResized() {
+      resizeCanvas(windowWidth, windowHeight);
+    }
+  </script>
+</body>
+</html>
